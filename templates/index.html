@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="static/styles.css" rel="stylesheet" />
+    <style>
+      body {
+        background-color: #141b2d;
+      }
+    </style>
+    <script>
+      function copyLink() {
+        var linkElement = document.getElementById("imageLink");
+        var linkUrl = linkElement.src;
+
+        navigator.clipboard
+          .writeText(linkUrl)
+          .then(function () {
+            alert("aaaa");
+          })
+          .catch(function (error) {
+            console.error("fail");
+          });
+      }
+    </script>
+  </head>
+  <body>
+    <div class="flex font-bold text-[16px] text-white justify-center mt-[40px]">
+      <a class="" href="{{ url_for('Encrypt') }}">Images_LSB</a>
+      <a class="ml-[40px]" href="{{ url_for('Encrypt_his_img') }}">Images_Histogram</a>
+      <a class="ml-[50px]" href="{{ url_for('Encrypt_lsb_au') }}">Audio</a>
+    </div>
+    <h1 class="text-[32px] font-bold text-white text-center mt-[40px]">
+      Encrypted LSB Form
+    </h1>
+    <h2 class="text-white text-[24px] font-thin text-center">using python</h2>
+
+    <div class="flex justify-center mt-[60px]">
+      <div class="w-[1000px]  flex rounded-[60px]">
+        <div class="w-[1000px] h-full text-white bg-[#2D3250]">
+          <div class="ml-[40px]">
+            <div class="flex mt-[40px] text-[14px]">
+              <p class="">Encrypted</p>
+              <a class="ml-[40px] text-gray-400" href="{{ url_for('Decrypt') }}">Decrypted</a>
+            </div>
+            <h1 class="font-bold text-[32px] mt-[40px] text-center">
+              Encrypt LSB now!
+            </h1>
+            <form
+              action="#"
+              class="mt-[40px]"
+              method="POST"
+              enctype="multipart/form-data"
+            >
+              <label for="" class="block text-[24px]">Select your file:</label>
+              <div
+                class="bg-[#424669] w-[90%] h-[50px] flex justify-center items-center"
+              >
+                <input type="file" name="image" accept="image/*" required />
+              </div>
+              <label for="message" class="block mt-[40px] text-[24px]"
+                >Enter your message:</label
+              >
+              <div class="bg-[#424669] w-[90%] h-[50px]">
+                <input
+                  type="text"
+                  id="message"
+                  name="message"
+                  required
+                  class="w-full h-full text-[32px] bg-[#424669] placeholder:text-[16px] text-center"
+                  placeholder=""
+                />
+              </div>
+              <button
+                type="submit"
+                class="w-[90%] h-[60px] bg-[#F4B185] mt-[40px] text-[32px]"
+              >
+               Encrypt</span> 
+              </button>
+            </form>
+            {% if image_link %}
+            <button
+              onclick="copyLink()"
+              class="w-[90%] h-[60px] bg-[#F4B185] mt-[40px] text-[32px]"
+            >
+              Copy Link
+            </button>
+            {% endif %}
+          </div>
+            <p class="hidden mb-[40px]">aaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
+        </div>
+        <div class=" -translate-x-1/2  flex justify-center w-[1000px] h-full bg-[#2D3250] items-center">
+          {% if image_link %}
+          <img src="{{ image_link }}" alt="" id="imageLink" />
+          {% endif %}
+       
+      </div>
+    </div>
+  </body>
+</html>

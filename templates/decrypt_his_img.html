@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="static/styles.css" rel="stylesheet" />
+    <style>
+      body {
+        background-color: #141b2d;
+      }
+    </style>
+    <script>
+      function copyLink() {
+        var linkElement = document.getElementById("imageLink");
+        var linkUrl = linkElement.src;
+
+        navigator.clipboard
+          .writeText(linkUrl)
+          .then(function () {
+            alert("aaaa");
+          })
+          .catch(function (error) {
+            console.error("fail");
+          });
+      }
+    </script>
+  </head>
+  <body>
+    <div class="flex font-bold text-[16px] text-white justify-center mt-[40px]">
+      <a class="" href="{{ url_for('Encrypt') }}">Images_LSB</a>
+      <a href="{{ url_for('Encrypt_his_img') }}" class="ml-[40px]">Images_Histogram</a>
+      <a class="ml-[50px]" href="{{ url_for('Encrypt_lsb_au') }}">Audio</a>
+    </div>
+    <h1 class="text-[32px] font-bold text-white text-center mt-[40px]">
+      Decrypted HIS Form
+    </h1>
+    <h2 class="text-white text-[24px] font-thin text-center">using python</h2>
+
+    <div class="flex justify-center mt-[60px] ">
+      <div class="w-[1000px]   flex rounded-[60px]">
+        <div class="w-[1000px] h-[600px] text-white bg-[#2D3250] flex-col">
+          <div class="flex mt-[40px] text-[14px] ml-[40px]">
+            <a class="text-gray-400" href="{{ url_for('Encrypt_his_img') }}">Encrypted</a>
+            <a class="ml-[40px] " href="{{ url_for('Decrypt_his_img') }}">Decrypted</a>
+          </div>
+          <h1 class="font-bold text-[32px] mt-[40px] text-center">
+            Decrypt HIS now!
+          </h1>
+          <div class="form " >
+            <form action="#" method="POST">
+              <label for="link" class="ml-[40px]">Enter your link:</label>
+              
+              <div class="bg-[#424669] w-[90%] h-[50px] ml-[40px]">
+                <input type="text" id="link" name="link" required  class="block w-full h-full text-[32px] bg-[#424669] placeholder:text-[16px] text-center"/>
+              </div>
+              <button type="submit" class="ml-[40px] w-[90%] h-[60px] bg-[#F4B185] mt-[40px] text-[32px]">Decrypt</button>
+              <Label class="block ml-[40px] mt-[40px]" >Your Message hide in file:</Label>
+              <div class="bg-[#424669] w-[90%] h-[50px] ml-[40px] ">
+                {% if result %}
+                <p class=" text-center text-[24px]"> {{ result }}</p>
+                {% endif %}
+              </div>
+            </form>
+            
+          </div>
+        </div>
+        <div class="w-[1000px] flex justify-center items-center  text-white bg-[#2D3250] flex-col">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/3/3f/JPEG_example_flower.jpg" class="hidden" alt="">
+          {% if image_link %}
+          <img src="{{ image_link }}" alt="" />
+          {% endif %}
+        </div>
+    </div>
+  </body>
+</html>
+
